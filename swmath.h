@@ -16,6 +16,13 @@ double weighted_angle_average(double a1, double a2, double weight) {
 	if (a1 - a2 > PI) a2 += 2*PI;
 	double a3 = weight * a1 + (1-weight)*a2;
 	if (a3 > PI) a3 -= 2*PI;
+	if(isnan(a3)){
+		printf("IS NAN!!!\n");
+		a3=0;
+	}
+
+
+
 	return a3;
 }
 
@@ -24,6 +31,11 @@ double weighted_average(double a1, double a2, double weight) {
 	// weight = 0 ==> a2
 	
 	double a3 = weight * a1 + (1-weight)*a2;
+	if(isnan(a3)){
+		printf("IS NAN!!!\n");
+		a3=0;
+	}
+
 	return a3;
 }
 
@@ -34,10 +46,20 @@ double mod_double(double t, double period) {
 		return mod_double(t-period,period);
 	if (t < 0)
 		return mod_double(t+period,period);
+	if(isnan(t)){
+		printf("IS NAN!!!\n");
+		t=0;
+	}
+
 	return t;
 }
 
 double signed_square(double x) {
+	if(isnan(x)){
+		printf("IS NAN!!!\n");
+		x=0;
+	}
+
     if (x>0)
         return x*x;
     else
@@ -45,6 +67,11 @@ double signed_square(double x) {
 }
 
 double swabs(double x) {
+	if(isnan(x)){
+		printf("IS NAN!!!\n");
+		x=0;
+	}
+
     if (x>0)
         return x;
     else
@@ -52,6 +79,11 @@ double swabs(double x) {
 }
 
 double unpack_float(uint8_t packed, double min, double max) {
+	if(isnan(packed/255.*(max-min)+min)){
+		printf("IS NAN!!!\n");
+		return 0;
+	}
+
     return packed/255.*(max-min)+min;
 }
 

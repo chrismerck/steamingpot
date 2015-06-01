@@ -148,9 +148,11 @@ main(int argc, char *argv[])
   printf("Packet:%s\n",rxstr);
   sample++;
 
+#if 0
   rawx = rawx;
   rawy = rawy;
   rawz = rawz;
+#endif
 
   //apply particle filter
   /*
@@ -164,7 +166,8 @@ main(int argc, char *argv[])
   double q1 = rawx;
   double q2 = rawy;
   double q3 = rawz;
-  double q0 = sqrt(1.0-q1*q1-q2*q2-q3*q3); 
+  double q0 = sqrt(1.0-q1*q1-q2*q2-q3*q3);
+  q0=isnan(q0)?0:q0;
   double sum = 1.0-q1*q1-q2*q2-q3*q3;
   printf("q = (%f,%f,%f,%f) %f\n",
       q0,q1,q2,q3,sum);
@@ -274,6 +277,8 @@ main(int argc, char *argv[])
 #define GMID    YMAX/2
 #define GLOW    YMAX*5/6
 #define GSIZE   XMAX/10
+                printf("%1.02f %1.02f %1.02f\n",
+		spsi * 180. / PI,sphi*180./PI,stheta*180./PI);
 
       drawGuage(screen, GLEFT, GTOP, GSIZE,
                 "pitch",
@@ -398,3 +403,12 @@ do_events:
 
   return 0;
 }
+/*
+double max(double a, double b){
+	if(a>b){
+		return a;
+	}
+	return b;
+
+}
+*/
